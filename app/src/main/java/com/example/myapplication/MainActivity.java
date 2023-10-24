@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch(requestCode) {
             case CAMERA_INTENT:
-                if(requestCode== Activity.RESULT_OK) {
+                if(resultCode== Activity.RESULT_OK) {
                     bmpImage = (Bitmap)data.getExtras().get("Data");
                     if(bmpImage!=null) {
                         imageView.setImageBitmap(bmpImage);

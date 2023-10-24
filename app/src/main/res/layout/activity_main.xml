@@ -1,47 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-   <Button
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="Take Picture"
-       android:onClick="takePicture"/>
+ <Button
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:onClick="takePicture"
+     android:text="Take Picture"
+     app:layout_constraintBottom_toTopOf="@+id/button3"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHorizontal_bias="0.148"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     app:layout_constraintVertical_bias="0.311" />
 
-    <ImageView
-        android:id="@+id/itemImage"
-        android:layout_width="250dp"
-        android:layout_height="250dp"/>
+ <ImageView
+     android:id="@+id/itemImage"
+     android:layout_width="250dp"
+     android:layout_height="250dp"
+     app:layout_constraintBottom_toBottomOf="parent"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHorizontal_bias="0.496"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     app:layout_constraintVertical_bias="0.86" />
 
-    <EditText
-        android:id="@+id/colorOfItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:hint="Give Color of Item"/>
+ <EditText
+     android:id="@+id/colorOfItem"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_margin="5dp"
+     android:hint="Give Color of Item"
+     android:textSize="25sp"
+     app:layout_constraintBottom_toTopOf="@+id/seasonOfItem"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHorizontal_bias="0.555"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     app:layout_constraintVertical_bias="0.886" />
 
-    <EditText
-        android:id="@+id/seasonOfItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:hint="Give preferrable weather to wear item"/>
+ <EditText
+     android:id="@+id/seasonOfItem"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_margin="5dp"
+     android:hint="Give preferrable weather to wear item"
+     android:textSize="25sp"
+     app:layout_constraintBottom_toTopOf="@+id/itemImage"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHorizontal_bias="0.555"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     app:layout_constraintVertical_bias="0.85" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:onClick="saveItem"/>
+ <Button
+     android:id="@+id/button4"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:onClick="saveItem"
+     android:text="Save"
+     app:layout_constraintBottom_toTopOf="@+id/button3"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHorizontal_bias="0.839"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     app:layout_constraintVertical_bias="0.311" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Items"
-        android:onClick="showItems"/>
+ <Button
+     android:id="@+id/button3"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginBottom="8dp"
+     android:onClick="showItems"
+     android:text="Show Items"
+     app:layout_constraintBottom_toTopOf="@+id/colorOfItem"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintHorizontal_bias="0.498"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     app:layout_constraintVertical_bias="0.786" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
