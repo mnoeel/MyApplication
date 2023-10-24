@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,7 +22,12 @@ import com.example.myapplication.DataModel.UserDatabase;
 
 import java.io.IOException;
 
+
 public class MainActivity extends AppCompatActivity {
+
+    private static final int pic_id = 123;
+    Button camera_open_id;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +36,28 @@ public class MainActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.itemImage);
         bmpImage = null;
+        camera_open_id = findViewById(R.id.camera_button);
 
         color = findViewById(R.id.colorOfItem);
         season = findViewById(R.id.seasonOfItem);
         itemDAO = UserDatabase.getDBInstance(this).itemDAO();
+
+        camera_open_id.setOnClickListener(v -> {
+            // Create the camera_intent ACTION_IMAGE_CAPTURE it will open the camera for capture the image
+            Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            // Start the activity with camera_intent, and request pic id
+            startActivityForResult(camera_intent, pic_id);
+        });
+
+
     }
+
 
     ImageView imageView;
     Bitmap bmpImage;
     EditText color, season;
     ItemDAO itemDAO;
-    final int CAMERA_INTENT = 51;
+   // final int CAMERA_INTENT = 51;
     public void showItems(View view) {
         Intent intent = new Intent(this, ShowUsersActivity.class);
         startActivity(intent);
@@ -65,44 +82,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT
             ).show();
         }
-    }
-
-    public void takePicture(View view) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(intent.resolveActivity(getPackageManager())!=null) {
-            startActivityForResult(intent, CAMERA_INTENT);
-        }
-    }
+    } }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case CAMERA_INTENT:
-                if (resultCode == Activity.RESULT_OK) {
-                    if (data != null) {
-                        // Get the URI of the image from the intent
-                        Uri imageUri = data.getData();
 
-                        try {
-                            // Load the image from the URI into a bitmap
-                            bmpImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-
-                            // Set the bitmap to the ImageView
-                            imageView.setImageBitmap(bmpImage);
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    } else {
-                        Log.e("MyApp", "Intent data is NULL");
-                        Toast.makeText(this, "Intent data is NULL", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Log.e("MyApp", "Result not OK: " + resultCode);
-                    Toast.makeText(this, "Result not OK", Toast.LENGTH_SHORT).show();
-                }
-                break;
-        } } }
 
