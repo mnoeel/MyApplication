@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import com.example.myapplication.DataModel.ClosetItem;
 import com.example.myapplication.DataModel.ItemDAO;
 import com.example.myapplication.DataModel.UserDatabase;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,5 +76,33 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { super.onActivityResult(requestCode, resultCode, data); switch (requestCode) { case CAMERA_INTENT: if (resultCode == Activity.RESULT_OK) { if (data != null) { bmpImage = (Bitmap) data.getExtras().get("data"); if (bmpImage != null) { imageView.setImageBitmap(bmpImage); } else { Log.e("MyApp", "Bitmap is NULL"); Toast.makeText( this, "Bitmap is NULL", Toast.LENGTH_SHORT ).show(); } } else { Log.e("MyApp", "Intent data is NULL"); Toast.makeText( this, "Intent data is NULL", Toast.LENGTH_SHORT ).show(); } } else { Log.e("MyApp", "Result not OK: " + resultCode); Toast.makeText( this, "Result not OK", Toast.LENGTH_SHORT ).show(); } break; } } }
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case CAMERA_INTENT:
+                if (resultCode == Activity.RESULT_OK) {
+                    if (data != null) {
+                        // Get the URI of the image from the intent
+                        Uri imageUri = data.getData();
+
+                        try {
+                            // Load the image from the URI into a bitmap
+                            bmpImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+
+                            // Set the bitmap to the ImageView
+                            imageView.setImageBitmap(bmpImage);
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+                        Log.e("MyApp", "Intent data is NULL");
+                        Toast.makeText(this, "Intent data is NULL", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Log.e("MyApp", "Result not OK: " + resultCode);
+                    Toast.makeText(this, "Result not OK", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        } } }
 
