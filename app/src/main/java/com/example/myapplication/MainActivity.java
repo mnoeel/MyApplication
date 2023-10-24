@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -70,30 +71,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode) {
-            case CAMERA_INTENT:
-                if(resultCode== Activity.RESULT_OK) {
-                    bmpImage = (Bitmap)data.getExtras().get("Data");
-                    if(bmpImage!=null) {
-                        imageView.setImageBitmap(bmpImage);
-                    } else {
-                        Toast.makeText(
-                                this,
-                                "Bitmap is NULL",
-                                Toast.LENGTH_SHORT
-                        ).show();
-                    }
-                } else {
-                    Toast.makeText(
-                            this,
-                            "Result not OK",
-                            Toast.LENGTH_SHORT
-                    ).show();
-                }
-                break;
-        }
-    }
-}
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { super.onActivityResult(requestCode, resultCode, data); switch (requestCode) { case CAMERA_INTENT: if (resultCode == Activity.RESULT_OK) { if (data != null) { bmpImage = (Bitmap) data.getExtras().get("data"); if (bmpImage != null) { imageView.setImageBitmap(bmpImage); } else { Log.e("MyApp", "Bitmap is NULL"); Toast.makeText( this, "Bitmap is NULL", Toast.LENGTH_SHORT ).show(); } } else { Log.e("MyApp", "Intent data is NULL"); Toast.makeText( this, "Intent data is NULL", Toast.LENGTH_SHORT ).show(); } } else { Log.e("MyApp", "Result not OK: " + resultCode); Toast.makeText( this, "Result not OK", Toast.LENGTH_SHORT ).show(); } break; } } }
+
