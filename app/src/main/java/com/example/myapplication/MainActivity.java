@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
     private static final int pic_id = 123;
     Button camera_open_id;
 
+    ImageView imageView;
+    Bitmap bmpImage;
+    EditText color, season;
+    ItemDAO itemDAO;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         imageView = findViewById(R.id.itemImage);
-        bmpImage = null;
         camera_open_id = findViewById(R.id.camera_button);
 
         color = findViewById(R.id.colorOfItem);
@@ -52,37 +56,44 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    ImageView imageView;
-    Bitmap bmpImage;
-    EditText color, season;
-    ItemDAO itemDAO;
-   // final int CAMERA_INTENT = 51;
+    // final int CAMERA_INTENT = 51;
     public void showItems(View view) {
         Intent intent = new Intent(this, ShowUsersActivity.class);
         startActivity(intent);
     }
-    public void saveItem(View view) {
-        if(color.getText().toString().isEmpty()
-                || season.getText().toString().isEmpty()
-                || bmpImage ==null) {
-            Toast.makeText(
-                    this,
-                    "User Data is Missing",
-                    Toast.LENGTH_SHORT
-            ).show();
-        } else {
-            ClosetItem closetItem = new ClosetItem();
-            closetItem.setColorOfItem(color.getText().toString());
-            closetItem.setSeasonOfItem(season.getText().toString());
-            itemDAO.insertClosetItem(closetItem);
-            Toast.makeText(
-                    this,
-                    "Insertion successful",
-                    Toast.LENGTH_SHORT
-            ).show();
-        }
-    } }
+
+   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Match the request 'pic id with requestCode
+        if (requestCode == pic_id) {
+            // BitMap is data structure of image file which store the image in memory
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            // Set the image in imageview for display
+            imageView.setImageBitmap(photo);
+        } }
+
+        public void saveItem (View view){
+            if (color.getText().toString().isEmpty()
+                    || season.getText().toString().isEmpty()
+                   ) {
+                Toast.makeText(
+                        this,
+                        "User Data is Missing",
+                        Toast.LENGTH_SHORT
+                ).show();
+            } else {
+                ClosetItem closetItem = new ClosetItem();
+                closetItem.setColorOfItem(color.getText().toString());
+                closetItem.setSeasonOfItem(season.getText().toString());
+                itemDAO.insertClosetItem(closetItem);
+                Toast.makeText(
+                        this,
+                        "Insertion successful",
+                        Toast.LENGTH_SHORT
+                ).show();
+            } } }
+
+
 
 
 
