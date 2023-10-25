@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,7 +34,10 @@ public class UserRecycler extends RecyclerView.Adapter<UserViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int i) {
         ClosetItem closetItem = data.get(i);
-        holder.imageView.setImageBitmap(DataConverter.convertByteArray2Image(closetItem.getImage()));
+        byte[] imageByteArray = closetItem.getImage();
+        if (imageByteArray != null) {
+            holder.imageView.setImageBitmap(DataConverter.convertByteArray2Image(imageByteArray));
+        }
     }
 
     @Override

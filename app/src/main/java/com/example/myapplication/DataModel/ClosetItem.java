@@ -36,7 +36,7 @@ public class ClosetItem {
     public String getSeasonOfItem() {
         return seasonOfItem;
     }
-    public void setSeasonOfItem(String userName) {
+    public void setSeasonOfItem(String seasonOfItem) {
         this.seasonOfItem = seasonOfItem;
     }
 

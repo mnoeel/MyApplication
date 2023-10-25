@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    private UserDatabase closetDatabase;
     private static final int pic_id = 123;
     Button camera_open_id;
 
@@ -45,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         color = findViewById(R.id.colorOfItem);
         season = findViewById(R.id.seasonOfItem);
         itemDAO = UserDatabase.getDBInstance(this).itemDAO();
-
+        closetDatabase = Room.databaseBuilder(getApplicationContext(),
+                UserDatabase.class, "closet-database").build();
         camera_open_id.setOnClickListener(v -> {
             // Create the camera_intent ACTION_IMAGE_CAPTURE it will open the camera for capture the image
             Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
